@@ -12,6 +12,7 @@ module "s3_bucket" {
     error_document = "error.html"
   }
 
+  attach_policy  = true
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
