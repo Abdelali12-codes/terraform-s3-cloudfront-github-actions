@@ -28,3 +28,62 @@ resource "aws_dynamodb_table" "terraform_lock" {
   }
 }
 
+
+# aws s3 cross account access
+
+resource "aws_s3_bucket_policy" "s3_cross_account_access" {
+  bucket = aws_s3_bucket.terraform_state.id
+  policy = data.aws_iam_policy_document.s3_cross_account_access.json
+}
+
+data "aws_iam_policy_document" "s3_cross_account_access" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_role.github_oidc_role_account1.arn, 
+          aws_iam_role.github_oidc_role_account2.arn]
+    }
+
+    actions = [
+       "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject",
+        "s3:ListBucket"
+    ]
+
+    resources = [
+      aws_s3_bucket.terraform_state.arn,
+      "${aws_s3_bucket.terraform_state.arn}/*",
+    ]
+  }
+}
+
+
+# dynamodb cross account access
+data "aws_iam_policy_document" "dynamodb_cross_account_access" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_role.github_oidc_role_account1.arn, 
+          aws_iam_role.github_oidc_role_account2.arn]
+    }
+
+    actions = [
+       "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:UpdateItem"
+    ]
+
+    resources = [
+      aws_dynamodb_table.terraform_lock.arn
+    ]
+  }
+}
+
+
+resource "aws_dynamodb_resource_policy" "dynamodb_cross_account_access" {
+  resource_arn = aws_dynamodb_table.terraform_lock.arn
+  policy       = data.aws_iam_policy_document.dynamodb_cross_account_access.json
+}
+
