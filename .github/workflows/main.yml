@@ -79,10 +79,9 @@ jobs:
           name: react-build
           path: ./build
       # Step 5: Deploy Website Files to S3
-      - name: Sync Website Content to S3
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --delete
+      - name: export code to s3
+        run: aws s3 sync ./build s3://$BUCKET_NAME
         env:
-          SOURCE_DIR: "./build"  # Path to your website content
-          AWS_S3_BUCKET: "my-website-bucket-${{ matrix.account_id }}"  # S3 bucket name from matrix
+          BUCKET_NAME: "my-website-bucket-${{ matrix.account_id }}"
+          AWS_EC2_METADATA_DISABLED: true
+      
