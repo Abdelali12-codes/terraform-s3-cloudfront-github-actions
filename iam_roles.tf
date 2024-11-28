@@ -73,9 +73,11 @@ resource "aws_iam_role" "github_oidc_role_account2" {
 resource "aws_iam_role_policy_attachment" "admin_access_account1" {
   role     = aws_iam_role.github_oidc_role_account1.name
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  provider = aws.account1
 }
 
 resource "aws_iam_role_policy_attachment" "admin_access_account2" {
   role     = aws_iam_role.github_oidc_role_account2.name
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  provider = aws.account2
 }

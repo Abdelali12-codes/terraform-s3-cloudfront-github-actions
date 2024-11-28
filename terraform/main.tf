@@ -3,6 +3,7 @@ module "s3_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   bucket = var.bucket_name
   acl    = "public-read"
+  block_public_policy = false
 
   website = {
     index_document = "index.html"
