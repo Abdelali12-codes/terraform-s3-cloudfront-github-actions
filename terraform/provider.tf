@@ -1,7 +1,8 @@
 terraform {
   backend "s3" {
     bucket         = "terraform-state-shared-bucket" # Replace with your bucket name
-    workspace_key_prefix = "terraform-state"
+    key            = "terraform-state/terraform.tfstate" # Customize this key structure if needed
+    workspace_key_prefix = "states"
     region         = "us-east-1" # Replace with your region
     dynamodb_table = "arn:aws:dynamodb:us-east-1:080266302756:table/terraform-state-lock" # Replace with your DynamoDB table name
     encrypt        = true
