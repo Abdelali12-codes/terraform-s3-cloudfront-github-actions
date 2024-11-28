@@ -42,8 +42,7 @@ data "aws_iam_policy_document" "s3_cross_account_access" {
        "s3:GetObject",
         "s3:PutObject",
         "s3:DeleteObject",
-        "s3:ListBucket",
-        "s3:HeadBucket"
+        "s3:ListBucket"
     ]
 
     resources = [
