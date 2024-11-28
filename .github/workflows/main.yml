@@ -31,7 +31,7 @@ jobs:
         working-directory: ./react-app
 
       - name: Upload build folder as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: react-build
           path: build/
@@ -74,7 +74,7 @@ jobs:
           TF_VAR_bucket_name: "my-website-bucket-${{ matrix.account_id }}"
 
       - name: Download build artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: react-build
           path: ./build
