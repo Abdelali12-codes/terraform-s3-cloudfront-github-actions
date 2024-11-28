@@ -4,6 +4,8 @@ module "s3_bucket" {
   bucket = var.bucket_name
   block_public_policy = false
   block_public_acls = false
+  restrict_public_buckets= false
+  ignore_public_acls  = false
 
   website = {
     index_document = "index.html"
@@ -22,9 +24,4 @@ module "s3_bucket" {
     ]
   })
 
-  tags = {
-    Environment = "production"
-    Account     = "Account3"
-    Project     = "Website Hosting"
-  }
 }
