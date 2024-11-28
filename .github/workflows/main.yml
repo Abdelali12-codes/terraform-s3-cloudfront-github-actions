@@ -43,6 +43,8 @@ jobs:
         account_id:
           - "080266302756"  # Account 1 ID
           - "043433929958"  # Account 2 ID
+      fail-fast: false  # Optional: Ensure all jobs run even if one fails
+      max-parallel: 1
     steps:
       # Step 1: Checkout the code
       - name: Checkout Code
