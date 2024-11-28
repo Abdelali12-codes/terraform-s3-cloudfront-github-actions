@@ -72,11 +72,8 @@ jobs:
       - name: Select or Create Workspace
         run: |
           terraform workspace select "${{ matrix.account_id }}" || terraform workspace new "${{ matrix.account_id }}"
-      
-      - name: Show Workspace
-        run: |
-           terraform workspace show
-           
+        working-directory: ./terraform
+
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: ./terraform
