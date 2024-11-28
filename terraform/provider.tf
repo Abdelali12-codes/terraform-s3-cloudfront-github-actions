@@ -3,7 +3,7 @@ terraform {
     bucket         = "terraform-state-shared-bucket" # Replace with your bucket name
     key            = "terraform-state/terraform.tfstate" # Customize this key structure if needed
     region         = "us-east-1" # Replace with your region
-    dynamodb_table = "terraform-state-lock" # Replace with your DynamoDB table name
+    dynamodb_table = "arn:aws:dynamodb:us-east-1:080266302756:table/terraform-state-lock" # Replace with your DynamoDB table name
     encrypt        = true
   }
   required_providers {
